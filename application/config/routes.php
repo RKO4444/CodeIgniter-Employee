@@ -25,4 +25,11 @@ $route['employee/edit/(:num)'] = 'EmployeeController/edit/$1';
 $route['employee/update/(:num)'] = 'EmployeeController/update/$1';
 $route['employee/delete/(:num)'] = 'EmployeeController/delete/$1';
 
+$route['blogs'] = 'BlogController/index';
+$route['blogs/create'] = 'BlogController/create';
+$route['blogs/store'] = 'BlogController/store';
+$route['blogs/edit/(:num)'] = 'BlogController/edit/$1';
+$route['blogs/update/(:num)'] = 'BlogController/update/$1';
+$route['blogs/delete/(:num)'] = 'BlogController/delete/$1';
+
 

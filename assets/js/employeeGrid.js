@@ -98,3 +98,24 @@ function confirmDelete(id) {
         ]
     });
 }
+
+function confirmBlogDelete(id) {
+    $.jAlert({
+        'title': 'Confirm Deletion',
+        'content': 'Are you sure you want to delete this Blog?',
+        'theme': 'red',
+        'btns': [
+            {
+                'text': 'Cancel',
+                'closeAlert': true
+            },
+            {
+                'text': 'Delete',
+                'theme': 'black',
+                'onClick': function(e, btn) {
+                    window.location.href = BASE_URL + "blogs/delete/" + id;
+                }
+            }
+        ]
+    });
+}

@@ -8,8 +8,9 @@
 <script src="<?= base_url('assets/js/jAlert.min.js'); ?>"></script>
 <script src="<?= base_url('assets/js/jAlert-functions.min.js'); ?>"></script>
 <script src="<?= base_url('assets/js/employeeGrid.js'); ?>"></script>
-
+<script src="<?= base_url('assets/ckeditor/ckeditor.js'); ?>"></script>
 <script>
+  CKEDITOR.replace('content');
   $(document).ready(function() {
     <?php if ($this->session->flashdata('status')): ?>
         $.jAlert({

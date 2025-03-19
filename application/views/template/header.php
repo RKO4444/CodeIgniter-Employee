@@ -12,12 +12,22 @@
   </head>
   <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="<?= base_url('employee'); ?>">Employee Management</a>
-    
+    <?php 
+    $current_route = $this->uri->segment(1); 
+    ?>
+    <a class="navbar-brand" href="<?= base_url($current_route == 'blogs' ? 'blogs' : 'employee'); ?>">
+      <?= ($current_route == 'blogs') ? 'Blog Management' : 'Employee Management'; ?>
+    </a>
     <div class="ml-auto">
-      <?php if ($this->session->userdata('user_id')): ?>
-        <span class="text-white mr-3">Welcome, <?= $this->session->userdata('user_name'); ?>!</span>
-        <a href="<?= base_url('logout'); ?>" class="btn btn-danger">Logout</a>
-      <?php endif; ?>
+        <?php if ($this->session->userdata('user_id')): ?>
+            <span class="text-white mr-3">Welcome, <?= $this->session->userdata('user_name'); ?>!</span>
+            
+            <?php if ($current_route == 'blogs'): ?>
+                <a href="<?= base_url('employee'); ?>" class="btn btn-primary mr-1">Employees</a>
+            <?php else: ?>
+                <a href="<?= base_url('blogs'); ?>" class="btn btn-primary mr-1">Blogs</a>
+            <?php endif; ?>
+            <a href="<?= base_url('logout'); ?>" class="btn btn-danger">Logout</a>
+        <?php endif; ?>
     </div>
   </nav>
