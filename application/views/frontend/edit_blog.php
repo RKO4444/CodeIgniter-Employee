@@ -1,23 +1,35 @@
-<div class="container mt-4">
-    <h2>Edit Blog</h2>
-
-    <form action="<?= base_url('blogs/update/'.$blog->id); ?>" method="POST">
-        <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" 
-        value="<?= $this->security->get_csrf_hash(); ?>">
-        <div class="form-group">
-            <label>Blog Title</label>
-            <input type="text" name="title" class="form-control" value="<?= $blog->title; ?>">
-            <?php if (($errors = $this->session->flashdata('validation_errors')) && isset($errors['title'])): ?>
-                <small class="text-danger"><?= $errors['title']; ?></small>
-            <?php endif; ?>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 mt-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>
+                        Edit Your Blog
+                        <a href="<?php echo base_url('blogs'); ?>" class="btn btn-danger float-right">Back</a>
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form action="<?= base_url('blogs/update/'.$blog->id); ?>" method="POST">
+                        <input type="hidden" name="<?= $this->security->get_csrf_token_name(); ?>" 
+                        value="<?= $this->security->get_csrf_hash(); ?>">
+                        <div class="form-group">
+                            <label>Blog Title</label>
+                            <input type="text" name="title" class="form-control" value="<?= $blog->title; ?>">
+                            <?php if (($errors = $this->session->flashdata('validation_errors')) && isset($errors['title'])): ?>
+                                <small class="text-danger"><?= $errors['title']; ?></small>
+                            <?php endif; ?>
+                        </div>
+                        <div class="form-group">
+                            <label>Blog Content</label>
+                            <textarea name="content" class="form-control" id="content" rows="4"><?= $blog->content; ?></textarea>
+                            <?php if (($errors = $this->session->flashdata('validation_errors')) && isset($errors['content'])): ?>
+                                <small class="text-danger"><?= $errors['content']; ?></small>
+                            <?php endif; ?>
+                        </div>
+                        <button type="submit" class="btn btn-success">Update Blog</button>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label>Blog Content</label>
-            <textarea name="content" class="form-control" id="content" rows="4"><?= $blog->content; ?></textarea>
-            <?php if (($errors = $this->session->flashdata('validation_errors')) && isset($errors['content'])): ?>
-                <small class="text-danger"><?= $errors['content']; ?></small>
-            <?php endif; ?>
-        </div>
-        <button type="submit" class="btn btn-success">Update Blog</button>
-    </form>
-</div>
+    </div>
+  </div>

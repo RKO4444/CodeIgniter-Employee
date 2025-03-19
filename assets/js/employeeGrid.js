@@ -36,7 +36,7 @@ $(document).ready(function() {
                     return `
                         <div class="d-flex justify-content-center">
                             <a href="${BASE_URL}employee/edit/${rowObject.id}" class="btn btn-warning btn-sm" style="margin-right: 15px;"><i class="fas fa-edit"></i> Edit</a>
-                            <a href="javascript:void(0);" onclick="confirmDelete(${rowObject.id});" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Delete</a>
+                            <a href="javascript:void(0);" onclick="confirmDelete(${rowObject.id});" style="color: white;" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Delete</a>
                         </div>
                     `;
                 }
