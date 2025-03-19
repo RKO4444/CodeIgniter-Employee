@@ -30,3 +30,26 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 *.sublime-project
 /tests/tests/
 /tests/results/
+
+# Ignore CodeIgniter system files
+application/cache/
+application/logs/
+system/
+
+# Ignore personal settings
+.env
+*.bak
+*.swp
+
+# Ignore uploaded files
+uploads/
+
+# Ignore composer/vendor (if using Composer)
+vendor/
+
+# Ignore IDE-specific files
+.vscode/
+.idea/
+
+# Ignore MacOS system files
+.DS_Store
