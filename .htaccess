@@ -1,0 +1,22 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Disable mod_security (Prevents CSRF token stripping)
+    <IfModule mod_security.c>
+        SecFilterEngine Off
+        SecFilterScanPOST Off
+    </IfModule>
+
+    # Allow all POST requests (Prevents CSRF stripping)
+    RewriteCond %{REQUEST_METHOD} POST
+    RewriteRule .* - [L]
+
+    # Remove index.php from URLs
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php?/$1 [L]
+
+    # Prevent access to application and system folders
+    RewriteRule ^application(/|$) - [F,L]
+    RewriteRule ^system(/|$) - [F,L]
+</IfModule>

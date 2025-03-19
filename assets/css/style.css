@@ -1,0 +1,37 @@
+/* Ensure jqGrid is scrollable on mobile */
+.table-responsive {
+    overflow-x: auto;
+}
+
+/* Style action buttons inside jqGrid */
+.btn-sm {
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+/* Profile picture in jqGrid */
+.rounded-circle {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+/* Style jqGrid header */
+.ui-jqgrid .ui-jqgrid-htable th {
+    background-color: #007bff !important;
+    color: white !important;
+    text-align: center;
+}
+
+/* Align jqGrid rows properly */
+.ui-jqgrid tr.jqgrow td {
+    vertical-align: middle !important;
+}
+
+/* Fix button alignment in jqGrid */
+.jqgrid-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
