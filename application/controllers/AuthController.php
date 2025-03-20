@@ -69,12 +69,10 @@ class AuthController extends CI_Controller {
                 $this->session->set_userdata('user_id', $user->id);
                 $this->session->set_userdata('user_name', $user->name);
 
-                $this->output->set_header('X-CSRF-Token: ' . $this->security->get_csrf_hash());
-
                 redirect(base_url('employee'));
             } else {
-                $this->session->set_flashdata('status_type', 'error');
-                $this->session->set_flashdata('status', 'Invalid Email or Password');
+                $this->session->set_flashdata('old_values', $this->input->post());
+                $this->session->set_flashdata('login_error', 'Invalid Email or Password');
                 redirect(base_url('login'));
             }
         }
@@ -83,7 +81,6 @@ class AuthController extends CI_Controller {
     public function logout() {
         $this->session->unset_userdata('user_id');
         $this->session->unset_userdata('user_name');
-        $this->session->set_flashdata('status', 'Logged out successfully');
         redirect(base_url('login'));
     }
 }

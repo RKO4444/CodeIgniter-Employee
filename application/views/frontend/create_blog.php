@@ -2,7 +2,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 mt-4">
-            <div class="card">
+            <div class="card shadow-lg">
                 <div class="card-header">
                     <h5>
                         Add Your Blog
@@ -15,14 +15,14 @@
                         value="<?= $this->security->get_csrf_hash(); ?>">
                         <div class="form-group">
                             <label>Blog Title</label>
-                            <input type="text" name="title" class="form-control">
+                            <input type="text" name="title" class="form-control" value="<?= set_value('title'); ?>">
                             <?php if (($errors = $this->session->flashdata('validation_errors')) && isset($errors['title'])): ?>
                                 <small class="text-danger"><?= $errors['title']; ?></small>
                             <?php endif; ?>
                         </div>
                         <div class="form-group">
                             <label>Blog Content</label>
-                            <textarea name="content" class="form-control" id="content" rows="4"></textarea>
+                            <textarea name="content" class="form-control" id="content" rows="4"> <?= set_value('content'); ?> </textarea>
                             <?php if (($errors = $this->session->flashdata('validation_errors')) && isset($errors['content'])): ?>
                                 <small class="text-danger"><?= $errors['content']; ?></small>
                             <?php endif; ?>
@@ -34,3 +34,5 @@
         </div>
     </div>
   </div>
+  <script src="<?= base_url('assets/ckeditor/ckeditor.js'); ?>"></script>
+  <script>CKEDITOR.replace('content');</script>

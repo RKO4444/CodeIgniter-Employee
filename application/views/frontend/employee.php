@@ -7,10 +7,8 @@
                     <a href="<?= base_url('employee/add'); ?>" class="btn btn-light">+ Add Employee</a>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table id="employeeGrid"></table>
-                        <div id="pager"></div>
-                    </div>
+                    <table id="employeeGrid"></table>
+                    <div id="pager"></div>
                 </div>
             </div>
         </div>

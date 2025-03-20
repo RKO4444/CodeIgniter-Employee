@@ -27,6 +27,11 @@ class BlogController extends CI_Controller {
     }
 
     public function store() {
+        extract_csrf_from_raw_input();
+
+        if ($this->security->get_csrf_hash() !== $this->input->post($this->security->get_csrf_token_name())) {
+            show_error("CSRF Token Mismatch! Please refresh and try again.", 403);
+        }
         $this->form_validation->set_rules('title', 'Title', 'required');
         $this->form_validation->set_rules('content', 'Content', 'required');
 
@@ -43,6 +48,7 @@ class BlogController extends CI_Controller {
         } else {
             $errors = $this->getErrors();
             $this->session->set_flashdata('validation_errors', $errors);
+            $this->session->set_flashdata('old_values', $this->input->post());
             $this->create();
         }
     }
@@ -55,6 +61,11 @@ class BlogController extends CI_Controller {
     }
 
     public function update($id) {
+        extract_csrf_from_raw_input();
+
+        if ($this->security->get_csrf_hash() !== $this->input->post($this->security->get_csrf_token_name())) {
+            show_error("CSRF Token Mismatch! Please refresh and try again.", 403);
+        }
         $this->form_validation->set_rules('title', 'Title', 'required');
         $this->form_validation->set_rules('content', 'Content', 'required');
 
@@ -69,6 +80,7 @@ class BlogController extends CI_Controller {
             redirect(base_url('blogs'));
         } else {
             $errors = $this->getErrors();
+            $this->session->set_flashdata('old_values', $this->input->post());
             $this->session->set_flashdata('validation_errors', $errors);
             $this->edit($id);
         }

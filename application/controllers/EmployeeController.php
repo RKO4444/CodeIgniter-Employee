@@ -3,6 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class EmployeeController extends CI_Controller {
 
+    private $age_limit = false;
+
     public function __construct()
     {
         parent::__construct();
@@ -135,6 +137,7 @@ class EmployeeController extends CI_Controller {
         }
         else {
             $errors = $this->getErrors($emailExists);
+            $this->session->set_flashdata('old_values', $this->input->post());
             $this->session->set_flashdata('validation_errors', $errors);
             $this->create();
         }
@@ -200,6 +203,7 @@ class EmployeeController extends CI_Controller {
             redirect(base_url('employee'));
         } else {
             $errors = $this->getErrors($emailExists);
+            $this->session->set_flashdata('old_values', $this->input->post());
             $this->session->set_flashdata('validation_errors', $errors);
             $this->edit($id);
         }
@@ -222,7 +226,7 @@ class EmployeeController extends CI_Controller {
         $this->form_validation->set_rules('department', 'Department', 'required');
         $this->form_validation->set_rules('state', 'State', 'required');
         $this->form_validation->set_rules('city', 'City', 'required');
-        $this->form_validation->set_rules('dob', 'Date of Birth', 'required');
+        $this->form_validation->set_rules('dob', 'Date of Birth', 'required|callback_validate_age');
     }
 
     public function getErrors($emailExists) {
@@ -240,13 +244,13 @@ class EmployeeController extends CI_Controller {
             $errors['phone'] = "Enter a valid 10-digit phone number.";
         }
         if (empty($this->input->post('department'))) {
-            $errors['department'] = "Please select a Department.";
+            $errors['department'] = "Department is required.";
         }
         if (empty($this->input->post('state'))) {
             $errors['state'] = "Please select a State.";
         }
         if (empty($this->input->post('city'))) {
-            $errors['city'] = "City is required.";
+            $errors['city'] = "Please select a City.";
         }
         if (empty($this->input->post('dob'))) {
             $errors['dob'] = "Date of Birth is required.";
@@ -256,7 +260,27 @@ class EmployeeController extends CI_Controller {
             $errors['email'] = "This email is already registered.";
         }
 
+        if ($this->age_limit) {
+            $errors['dob'] = "You must be atleast 18 years old";
+        }
+
 
         return $errors;
+    }
+
+    public function validate_age($dob)
+    {
+        $dob_timestamp = strtotime($dob);
+        $age = date('Y') - date('Y', $dob_timestamp);
+
+        if (date('md', $dob_timestamp) > date('md')) {
+            $age--;
+        }
+
+        if ($age < 18) {
+            $this->age_limit = true;
+            return FALSE;
+        }
+        return TRUE;
     }
 }

@@ -5,7 +5,7 @@ $(document).ready(function() {
         datatype: "json",
         mtype: "GET",
         colModel: [
-            { label: 'ID', name: 'id', key: true, width: 50, sortable: true },
+            { label: 'ID', name: 'id', key: true, width: 50, sortable: true,search: false, },
             { label: 'First Name', name: 'first_name', width: 90, sortable: true },
             { label: 'Last Name', name: 'last_name', width: 80, sortable: true },
             { label: 'Email', name: 'email', width: 200, sortable: true },
@@ -17,12 +17,12 @@ $(document).ready(function() {
             {
                 label: 'Profile Photo',
                 name: 'profile_photo',
-                width: 100,
+                width: 80,
                 search: false,
                 sortable: false,
                 formatter: function(cellValue) {
                     let imageUrl = cellValue ? `${BASE_URL}uploads/${cellValue}` : `${BASE_URL}assets/default-profile.jpg`;
-                    return `<img src="${imageUrl}" width="100" height="100" class="rounded-circle border" style="margin-left: 8px;">`;
+                    return `<img src="${imageUrl}" width="80" height="80" class="rounded-circle border" style="margin-left: 8px;">`;
                 }
             },
             {
@@ -35,7 +35,7 @@ $(document).ready(function() {
                 formatter: function(cellValue, options, rowObject) {
                     return `
                         <div class="d-flex justify-content-center">
-                            <a href="${BASE_URL}employee/edit/${rowObject.id}" class="btn btn-warning btn-sm" style="margin-right: 15px;"><i class="fas fa-edit"></i> Edit</a>
+                            <a href="${BASE_URL}employee/edit/${rowObject.id}" class="btn btn-warning btn-sm" style="margin-right: 15px; color: white; "><i class="fas fa-edit"></i> Edit</a>
                             <a href="javascript:void(0);" onclick="confirmDelete(${rowObject.id});" style="color: white;" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Delete</a>
                         </div>
                     `;

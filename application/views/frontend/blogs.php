@@ -7,16 +7,25 @@
                     <a href="<?= base_url('blogs/create'); ?>" class="btn btn-light">+ Add Blog</a>
                 </div>
                 <div class="card-body">
-                    <div class="list-group">
-                        <?php foreach ($blogs as $blog): ?>
-                            <div class="list-group-item">
-                                <h4><?= $blog->title; ?></h4>
-                                <p><?= nl2br($blog->content); ?></p>
-                                <a href="<?= base_url('blogs/edit/'.$blog->id); ?>" class="btn btn-warning mr-1">Edit</a>
-                                <a href="javascript:void(0);" onclick="confirmBlogDelete(<?= $blog->id; ?>);" class="btn btn-danger">Delete</a>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
+                    <?php if (!empty($blogs)): ?>
+                        <div class="list-group">
+                            <?php foreach ($blogs as $blog): ?>
+                                <div class="list-group-item">
+                                    <h3><?= $blog->title; ?></h4>
+                                    <small class="bg-light p-1 my-1 d-block">Posted on: <?= $blog->updated_at; ?></small>
+                                    <p><?= $blog->content; ?></p>
+                                    <a href="<?= base_url('blogs/edit/'.$blog->id); ?>" class="btn btn-warning btn-sm mr-1">Edit</a>
+                                    <a href="javascript:void(0);" onclick="confirmBlogDelete(<?= $blog->id; ?>);" class="btn btn-danger btn-sm">Delete</a>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php else: ?>
+                        <div class="text-center">
+                            <h5 class="text-muted">No blogs found.</h5>
+                            <p class="text-muted">Add your first blog now!</p>
+                            <a href="<?= base_url('blogs/create'); ?>" class="btn btn-success">+ Add Your First Blog</a>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

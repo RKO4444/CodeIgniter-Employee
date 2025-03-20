@@ -7,7 +7,9 @@
 
     <link rel="stylesheet" href="<?= base_url('assets/css/bootstrap.min.css'); ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css/jquery-ui.min.css'); ?>">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.5/css/ui.jqgrid.min.css">
+    <link rel="stylesheet" href="<?= base_url('assets/css/jAlert.min.css'); ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/css/jqgrid.css'); ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/css/custom.css'); ?>">
     <title>Employees!</title>
   </head>
   <body>

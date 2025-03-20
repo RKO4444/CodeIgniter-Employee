@@ -1,7 +1,7 @@
 <div class="container mt-4">
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <div class="card">
+            <div class="card shadow-lg">
                 <div class="card-header bg-primary text-white">Signup</div>
                 <div class="card-body">
                     <?php if(validation_errors()): ?>
