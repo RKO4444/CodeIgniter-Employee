@@ -16,14 +16,14 @@
                             <label>Blog Title</label>
                             <input type="text" name="title" class="form-control" value="<?= set_value('title', $this->session->flashdata('old_values')['title'] ?? $blog->title); ?>">
                             <?php if (($errors = $this->session->flashdata('validation_errors')) && isset($errors['title'])): ?>
-                                <small class="text-danger"><?= $errors['title']; ?></small>
+                                <small class="text-danger" id="error_title"><?= $errors['title']; ?></small>
                             <?php endif; ?>
                         </div>
                         <div class="form-group">
                             <label>Blog Content</label>
                             <textarea name="content" class="form-control" id="content" rows="4"> <?= set_value('content', $this->session->flashdata('old_values')['content'] ?? $blog->content); ?> </textarea>
                             <?php if (($errors = $this->session->flashdata('validation_errors')) && isset($errors['content'])): ?>
-                                <small class="text-danger"><?= $errors['content']; ?></small>
+                                <small class="text-danger" id="error_content"><?= $errors['content']; ?></small>
                             <?php endif; ?>
                         </div>
                         <button type="submit" class="btn btn-success">Update Blog</button>

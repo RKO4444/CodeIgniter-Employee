@@ -11,8 +11,8 @@ $(document).ready(function() {
             { label: 'Email', name: 'email', width: 200, sortable: true },
             { label: 'Phone', name: 'phone', width: 100 },
             { label: 'Department', name: 'department', width: 80 },
-            { label: 'State', name: 'state', width: 100, sortable: true },
-            { label: 'City', name: 'city', width: 100, sortable: true },
+            { label: 'State', name: 'state_name', width: 100, sortable: true },
+            { label: 'City', name: 'city_name', width: 100, sortable: true },
             { label: 'DOB', name: 'dob', width: 80, formatter: 'date' },
             {
                 label: 'Profile Photo',
@@ -119,3 +119,46 @@ function confirmBlogDelete(id) {
         ]
     });
 }
+
+$(document).ready(function () {
+    $("#state").on("change",function () {
+        var state_id = $(this).val();
+        $("#city").html('<option value="">Loading...</option>');
+
+        if (state_id) {
+            $.ajax({
+                url: BASE_URL + "location/getCities",
+                type: "POST",
+                data: { state_id: state_id },
+                dataType: "json",
+                success: function (data) {
+                    var cityOptions = '<option value="">Select City</option>';
+                    $.each(data, function (index, city) {
+                        cityOptions += '<option value="' + city.id + '">' + city.city_name + '</option>';
+                    });
+                    $("#city").html(cityOptions);
+                    const oldCity = $("#city").data('selected');
+                    if (oldCity) {
+                        $("#city").val(oldCity);
+                    }
+                }
+            });
+        } else {
+            $("#city").html('<option value="">Select City</option>');
+        }
+    });
+    $("#state").trigger("change");
+});
+
+
+$(document).ready(function () {
+    $("input, select, textarea").on("input change", function () {
+        const fieldName = $(this).attr("name");
+        const errorElement = $("#error_" + fieldName);
+        if (errorElement.length) {
+            errorElement.text('').hide();
+        }
+    });
+});
+
+

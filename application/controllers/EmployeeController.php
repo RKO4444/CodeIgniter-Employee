@@ -12,6 +12,7 @@ class EmployeeController extends CI_Controller {
             redirect(base_url('login'));
         }
         $this->load->model('EmployeeModel','em');
+        $this->load->model('LocationModel');
     }
 
     public function index()
@@ -31,7 +32,11 @@ class EmployeeController extends CI_Controller {
         $sortBy = $this->input->get('sidx', TRUE) ?? 'id';
         $sortOrder = $this->input->get('sord', TRUE) ?? 'asc';
 
+        $this->db->select('employee.*, states.state_name, cities.city_name');
         $this->db->from('employee');
+        $this->db->join('states', 'states.id = employee.state', 'left');
+        $this->db->join('cities', 'cities.id = employee.city', 'left');
+        $this->db->where('employee.is_deleted', 0);
 
         $filters = $this->input->get('filters', TRUE);
         if (!empty($filters)) {
@@ -42,6 +47,9 @@ class EmployeeController extends CI_Controller {
                     $field = $filter['field'];
                     $operator = $filter['op'];
                     $value = $filter['data'];
+
+                    if ($field === 'state_name') $field = 'states.state_name';
+                    if ($field === 'city_name') $field = 'cities.city_name';
 
                     switch ($operator) {
                         case 'eq':
@@ -87,8 +95,9 @@ class EmployeeController extends CI_Controller {
 
     public function create()
     {
+        $data['states'] = $this->LocationModel->getStates();
         $this->load->view('template/header');
-        $this->load->view('frontend/create');
+        $this->load->view('frontend/create',$data);
         $this->load->view('template/footer');
     }
 
@@ -127,7 +136,9 @@ class EmployeeController extends CI_Controller {
                 'state' => $this->input->post('state', TRUE),
                 'city' => $this->input->post('city', TRUE),
                 'dob' => $this->input->post('dob', TRUE),
-                'profile_photo' => $profile_photo
+                'profile_photo' => $profile_photo,
+                'created_by' => $this->session->userdata('user_id'),
+                'modified_by' => $this->session->userdata('user_id'),
             ];
 
             $this->em->insertEmployee($data);
@@ -147,6 +158,7 @@ class EmployeeController extends CI_Controller {
         $this->load->view('template/header');
 
         $data['employee'] =  $this->em->editEmployee($id);
+        $data['states'] = $this->LocationModel->getStates();
         $this->load->view('frontend/edit',$data);
         $this->load->view('template/footer');
 
@@ -194,7 +206,8 @@ class EmployeeController extends CI_Controller {
                 'state' => $this->input->post('state', TRUE),
                 'city' => $this->input->post('city', TRUE),
                 'dob' => $this->input->post('dob', TRUE),
-                'profile_photo' => $profile_photo
+                'profile_photo' => $profile_photo,
+                'modified_by' => $this->session->userdata('user_id'),
             ];
     
             $this->em->updateEmployee($id, $data);

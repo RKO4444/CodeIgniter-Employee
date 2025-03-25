@@ -32,4 +32,6 @@ $route['blogs/edit/(:num)'] = 'BlogController/edit/$1';
 $route['blogs/update/(:num)'] = 'BlogController/update/$1';
 $route['blogs/delete/(:num)'] = 'BlogController/delete/$1';
 
+$route['location/getCities'] = 'LocationController/getCities';
+
 

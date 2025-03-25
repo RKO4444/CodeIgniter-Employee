@@ -17,7 +17,7 @@
                             <label for="">First Name<span class="text-danger">*</span></label>
                             <input type="text" name="first_name" class="form-control" value="<?= set_value('first_name'); ?>">
                             <?php if (($errors = $this->session->flashdata('validation_errors')) && isset($errors['first_name'])): ?>
-                                <small class="text-danger"><?= $errors['first_name']; ?></small>
+                                <small class="text-danger" id="error_first_name"><?= $errors['first_name']; ?></small>
                             <?php endif; ?>
                         </div>
 
@@ -25,7 +25,7 @@
                             <label for="">Last Name<span class="text-danger">*</span></label>
                             <input type="text" name="last_name" class="form-control" value="<?= set_value('last_name'); ?>">
                             <?php if (($errors = $this->session->flashdata('validation_errors')) && isset($errors['last_name'])): ?>
-                                <small class="text-danger"><?= $errors['last_name']; ?></small>
+                                <small class="text-danger" id="error_last_name"><?= $errors['last_name']; ?></small>
                             <?php endif; ?>
                         </div>
 
@@ -38,7 +38,7 @@
                             <label for="">Date of Birth<span class="text-danger">*</span></label>
                             <input type="date" name="dob" class="form-control" value="<?= set_value('dob'); ?>">
                             <?php if (($errors = $this->session->flashdata('validation_errors')) && isset($errors['dob'])): ?>
-                                <small class="text-danger"><?= $errors['dob']; ?></small>
+                                <small class="text-danger" id="error_dob"><?= $errors['dob']; ?></small>
                             <?php endif; ?>
                         </div>
 
@@ -46,7 +46,7 @@
                             <label for="">Email<span class="text-danger">*</span></label>
                             <input type="email" name="email" class="form-control" value="<?= set_value('email'); ?>">
                             <?php if (($errors = $this->session->flashdata('validation_errors')) && isset($errors['email'])): ?>
-                                <small class="text-danger"><?= $errors['email']; ?></small>
+                                <small class="text-danger" id="error_email"><?= $errors['email']; ?></small>
                             <?php endif; ?>
                         </div>
 
@@ -54,7 +54,7 @@
                             <label for="">Phone<span class="text-danger">*</span></label>
                             <input type="tel" name="phone" class="form-control" pattern="[0-9]{10}" title="Enter 10-digit phone number" placeholder="Enter your 10-digit phone number" value="<?= set_value('phone'); ?>">
                             <?php if (($errors = $this->session->flashdata('validation_errors')) && isset($errors['phone'])): ?>
-                                <small class="text-danger"><?= $errors['phone']; ?></small>
+                                <small class="text-danger" id="error_phone"><?= $errors['phone']; ?></small>
                             <?php endif; ?>
                         </div>
 
@@ -62,29 +62,36 @@
                             <label for="">Department<span class="text-danger">*</span></label>
                             <input type="text" name="department" class="form-control" value="<?= set_value('department'); ?>">
                             <?php if (($errors = $this->session->flashdata('validation_errors')) && isset($errors['department'])): ?>
-                                <small class="text-danger"><?= $errors['department']; ?></small>
+                                <small class="text-danger" id="error_department"><?= $errors['department']; ?></small>
                             <?php endif; ?>
                         </div>
 
                         <div class="form-group">
                             <label for="">State<span class="text-danger">*</span></label>
-                            <input type="text" name="state" class="form-control" value="<?= set_value('state'); ?>">
+                            <select name="state" id="state" class="form-control">
+                                <option value="">Select State</option>
+                                <?php foreach ($states as $state): ?>
+                                    <option value="<?= $state->id ?>" <?= set_value('state') == $state->id ? 'selected' : ''; ?>>
+                                        <?= $state->state_name ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
                             <?php if (($errors = $this->session->flashdata('validation_errors')) && isset($errors['state'])): ?>
-                                <small class="text-danger"><?= $errors['state']; ?></small>
+                                <small class="text-danger" id="error_state"><?= $errors['state']; ?></small>
                             <?php endif; ?>
                         </div>
 
                         <div class="form-group">
                             <label for="">City<span class="text-danger">*</span></label>
-                            <input type="text" name="city" class="form-control" value="<?= set_value('city'); ?>">
+                            <select name="city" id="city" class="form-control" data-selected="<?= set_value('city'); ?>">
+                                <option value="">Select City</option>
+                            </select>
                             <?php if (($errors = $this->session->flashdata('validation_errors')) && isset($errors['city'])): ?>
-                                <small class="text-danger"><?= $errors['city']; ?></small>
+                                <small class="text-danger" id="error_city"><?= $errors['city']; ?></small>
                             <?php endif; ?>
                         </div>
                         
-                        <!-- <div class="form-group"> -->
-                            <button type="submit" class="btn btn-success">Save</button>
-                        <!-- </div> -->
+                        <button type="submit" class="btn btn-success">Save</button>
 
                     </form>
                 </div>
